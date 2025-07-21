@@ -4,7 +4,7 @@ import { createServiceOrder } from '@/api/serviceOrdersApi'
 import { orderInvitationsApi } from '@/api/orderInvitationsAPI'
 import api from '@/api'
 
-const BASE_URL = 'http://127.0.0.1:8000' // Base URL without /api
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL; // Base URL without /api
 
 export default function ConfirmationStep({ formData, onBack, onSubmit }) {
   const [submitting, setSubmitting] = useState(false)

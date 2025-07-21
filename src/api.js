@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://127.0.0.1:8000/api';
+const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`;
 
 // Auth endpoints and configuration
 export const AUTH_ENDPOINTS = {
-    LOGIN: `${BASE_URL}login`,  
-    LOGOUT: `${BASE_URL}logout`,
+    LOGIN: `${BASE_URL}/login`,  
+    LOGOUT: `${BASE_URL}/logout`,
 };
 
 export const AUTH_TOKEN_KEY = 'token';
 export const AUTH_USER_KEY = 'user';
-export const MAIN_APP_DOMAIN = process.env.NEXT_PUBLIC_MAIN_APP_DOMAIN || 'service.com';
+export const MAIN_APP_DOMAIN = process.env.NEXT_PUBLIC_ADMIN_URL;
 
 export const API_CONFIG = {
     baseHeaders: {
@@ -25,7 +25,7 @@ export const API_CONFIG = {
 
 // Create an axios instance with default configuration
 const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL || BASE_URL,
+    baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`,
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

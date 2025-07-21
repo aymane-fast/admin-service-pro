@@ -44,13 +44,13 @@ export async function logoutFromSubdomain() {
         }
         clearAuthStorage();
         
-        window.location.href = 'https://service-pro-admin-master.vercel.app/?logout=true'; // commented out for local dev
+        window.location.href = `${process.env.NEXT_PUBLIC_ADMIN_URL}/?logout=true`;
         // window.location.href = 'http://localhost:3001/?logout=true';
     } catch (error) {
         console.error('Logout error:', error);
         // Still clear storage and redirect even if API call fails
         clearAuthStorage();
-        window.location.href = 'https://service-pro-admin-master.vercel.app/?logout=true'; // commented out for local dev
+        window.location.href = `${process.env.NEXT_PUBLIC_ADMIN_URL}/?logout=true`;
         // window.location.href = 'http://localhost:3001/?logout=true';
     }
 }
@@ -83,7 +83,7 @@ export function withAuth(WrappedComponent) {
             const token = localStorage.getItem(AUTH_TOKEN_KEY);
             if (!token) {
                 // window.location.href = 'https://service-pro-admin-master.vercel.app/login'; // commented out for local dev
-                window.location.href = 'http://localhost:3001/login';
+                window.location.href = `${process.env.NEXT_PUBLIC_ADMIN_URL}/login`;
             }
         }, []);
 

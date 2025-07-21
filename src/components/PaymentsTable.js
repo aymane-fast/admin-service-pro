@@ -12,7 +12,7 @@ export default function PaymentsTable({ paymentType = 'all', refreshTrigger = 0 
 
   const fetchOrderDetails = async (orderId) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/orders/${orderId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${orderId}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }

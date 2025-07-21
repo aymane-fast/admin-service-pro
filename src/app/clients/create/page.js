@@ -87,7 +87,7 @@ export default function CreateClient() {
 
       console.log('Sending request with body:', requestBody);
 
-      const response = await fetch('http://127.0.0.1:8000/api/clients', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/clients`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

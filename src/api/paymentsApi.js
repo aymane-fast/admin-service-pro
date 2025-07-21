@@ -3,7 +3,7 @@ import api from '@/api';
 const paymentsApi = {
   fetchPaymentsOverview: async () => {
     try {
-      const response = await api.get('http://127.0.0.1:8000/api/payments');
+      const response = await api.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/payments`);
       return response.data;
     } catch (error) {
       console.error('Error fetching payments:', error);
@@ -14,7 +14,7 @@ const paymentsApi = {
   fetchPaymentDetails: async (id) => {
     try {
       if (!id) throw new Error('Payment ID is required');
-      const response = await api.get(`http://127.0.0.1:8000/api/payments/${id}`);
+      const response = await api.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/payments/${id}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching payment details:', error);
@@ -25,7 +25,7 @@ const paymentsApi = {
   // Create payment (works for all types: prestataire, partner, client)
   createPayment: async (data) => {
     try {
-      const response = await api.post('http://127.0.0.1:8000/api/payments', {
+      const response = await api.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/payments`, {
         direction: data.type === 'client' ? 'received' : 'sent',
         entity_type: data.type,
         entity_id: data.type === 'prestataire' ? data.prestataire_id : 
@@ -49,7 +49,7 @@ const paymentsApi = {
   // Get payments by order
   getPaymentsByOrder: async (orderId) => {
     try {
-      const response = await api.get(`http://127.0.0.1:8000/api/payments?order_id=${orderId}`);
+      const response = await api.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/payments?order_id=${orderId}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching payments by order:', error);

@@ -22,7 +22,7 @@ const formatDate = (dateString) => {
   });
 };
 
-const BASE_URL = 'http://127.0.0.1:8000' // Base URL without /api
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL; // Base URL without /api
 
 export default function OrderDetails() {
   const params = useParams()
@@ -556,7 +556,7 @@ export default function OrderDetails() {
       setLoadingInvoices(true)
       console.log('Fetching quotes/invoices for order:', orderId)
       
-      const response = await fetch(`http://127.0.0.1:8000/api/quotes?order_id=${orderId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/quotes?order_id=${orderId}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json',
@@ -612,7 +612,7 @@ export default function OrderDetails() {
   const fetchSupplierInvoices = async () => {
     try {
       console.log('Fetching supplier invoices for order:', orderId);
-      const response = await fetch(`http://127.0.0.1:8000/api/orders/${orderId}/supplier-invoices`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${orderId}/supplier-invoices`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json',
@@ -639,7 +639,7 @@ export default function OrderDetails() {
       setLoadingQuotes(true);
       console.log('Loading all available quotes for selection...');
       
-      const response = await fetch('http://127.0.0.1:8000/api/quotes', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/quotes`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json',

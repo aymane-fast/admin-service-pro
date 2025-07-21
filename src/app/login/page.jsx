@@ -25,7 +25,7 @@ const Login = () => {
     e.preventDefault();
     try {
       // Here you would typically make an API call to authenticate
-      const response = await fetch('http://127.0.0.1:8000/api/login', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,7 +45,8 @@ const Login = () => {
             
             const encryptedToken = await encryptData(data.data.token); 
             const safeToken = encodeURIComponent(encryptedToken);// Base64 encode the token = btoa(data.data.token); // Base64 encode the token
-            window.location.href = `https://partner-master.vercel.app?token=${safeToken}`;
+            // window.location.href = `https://partner-master.vercel.app?token=${safeToken}`;
+            window.location.href = `${process.env.NEXT_PUBLIC_APP_URL}?token=${safeToken}`;
           }else{
 
             window.location.href = '/dashboard';

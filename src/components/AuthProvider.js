@@ -10,7 +10,7 @@ import { AUTH_TOKEN_KEY } from '../api';
  * Handles auth token initialization and logout functionality
  */
 // const LOGIN_URL = 'https://service-pro-admin-master.vercel.app/login'; 
-const LOGIN_URL = 'http://localhost:3001/login';
+const LOGIN_URL = `${process.env.NEXT_PUBLIC_ADMIN_URL}/login`;
 // const '/login' = 'http://localhost:3001/login';
 
 export default function AuthProvider({ children }) {
