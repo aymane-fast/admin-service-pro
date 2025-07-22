@@ -345,3 +345,132 @@ export default function ResetPasswordModal({ isOpen, onClose, onReset, onAdminCh
     </div>
   )
 } 
+
+export function PublicResetPasswordModal({ isOpen, onClose }) {
+  const [step, setStep] = useState(1);
+  const [email, setEmail] = useState('');
+  const [token, setToken] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+
+  // Use env variable for backend URL
+  const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+  const handleRequestReset = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setMessage('');
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/forgot-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (data.status === 'success') {
+        setMessage('Check your email for the reset token. (Dev: Token: ' + data.data.token + ')');
+        setStep(2);
+      } else {
+        setError(data.message || 'Error requesting reset');
+      }
+    } catch (err) {
+      setError('Network error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setMessage('');
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/reset-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, token, password, password_confirmation: passwordConfirmation }),
+      });
+      const data = await res.json();
+      if (data.status === 'success') {
+        setMessage('Password reset successful!');
+        setStep(3);
+      } else {
+        setError(data.message || 'Error resetting password');
+      }
+    } catch (err) {
+      setError('Network error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-xl shadow-xl max-w-md w-full">
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-bold text-gray-900">Reset Password</h3>
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          {step === 1 && (
+            <form onSubmit={handleRequestReset} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} required className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700" placeholder="Enter your email" />
+              </div>
+              {error && <div className="text-red-600 text-sm">{error}</div>}
+              {message && <div className="text-green-600 text-sm">{message}</div>}
+              <div className="flex justify-end gap-3">
+                <button type="button" onClick={onClose} className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg">Cancel</button>
+                <button type="submit" disabled={loading} className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50">{loading ? 'Sending...' : 'Request Reset'}</button>
+              </div>
+            </form>
+          )}
+          {step === 2 && (
+            <form onSubmit={handleResetPassword} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} required className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700" disabled />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Token</label>
+                <input type="text" value={token} onChange={e => setToken(e.target.value)} required className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700" placeholder="Enter the token from your email" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} required className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700" placeholder="New password" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                <input type="password" value={passwordConfirmation} onChange={e => setPasswordConfirmation(e.target.value)} required className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700" placeholder="Confirm new password" />
+              </div>
+              {error && <div className="text-red-600 text-sm">{error}</div>}
+              {message && <div className="text-green-600 text-sm">{message}</div>}
+              <div className="flex justify-end gap-3">
+                <button type="button" onClick={onClose} className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg">Cancel</button>
+                <button type="submit" disabled={loading} className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50">{loading ? 'Resetting...' : 'Reset Password'}</button>
+              </div>
+            </form>
+          )}
+          {step === 3 && (
+            <div className="text-center">
+              <div className="mb-4 text-green-600">{message}</div>
+              <button onClick={onClose} className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg">Close</button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+} 

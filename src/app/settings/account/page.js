@@ -3,9 +3,11 @@ import { useState } from 'react'
 import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
 import SettingsSidebar from '@/components/SettingsSidebar'
+import { PublicResetPasswordModal } from '@/components/ResetPasswordModal';
 
 export default function AccountSettings() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [showResetModal, setShowResetModal] = useState(false)
 
   return (
     <div className="flex min-h-screen bg-[#F8F9FF]">
@@ -45,7 +47,7 @@ export default function AccountSettings() {
               <div className="flex-1 px-8 py-6">
                 <div className="max-w-2xl">
                   <div className="mb-8">
-                    <h3 className="text-xl font-semibold text-gray-900">Account Settings</h3>
+                    <h3 className="text-xl font-semibold text-gray-900">Account Settings </h3>
                     <p className="text-sm text-gray-500 mt-1">Manage your account preferences and personal information</p>
                   </div>
 
@@ -68,7 +70,14 @@ export default function AccountSettings() {
                       We're working on adding account management features.
                       Check back soon for updates.
                     </p>
+                    <button
+                      className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                      onClick={() => setShowResetModal(true)}
+                    >
+                      Reset Password
+                    </button>
                   </div>
+                  <PublicResetPasswordModal isOpen={showResetModal} onClose={() => setShowResetModal(false)} />
                 </div>
               </div>
             </div>
