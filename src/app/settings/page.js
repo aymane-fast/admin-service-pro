@@ -218,11 +218,11 @@ export default function Settings() {
               <p className="text-sm text-gray-500 mt-1">Manage your account preferences and personal information</p>
             </div>
             <div className="text-center py-12">
-              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="mx-auto h-12 w-12 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
-              <h3 className="mt-2 text-sm font-medium text-gray-900">Account settings coming soon</h3>
-              <p className="mt-1 text-sm text-gray-500">We're working on adding account management features.</p>
+              <h3 className="mt-2 text-sm font-medium text-gray-900">Account settings are available in the left sidebar.</h3>
+              <p className="mt-1 text-sm text-gray-500">Use the sidebar to access account security and password options.</p>
             </div>
           </div>
         )
@@ -234,11 +234,11 @@ export default function Settings() {
               <p className="text-sm text-gray-500 mt-1">Manage your notification preferences</p>
             </div>
             <div className="text-center py-12">
-              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="mx-auto h-12 w-12 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
-              <h3 className="mt-2 text-sm font-medium text-gray-900">Notification settings coming soon</h3>
-              <p className="mt-1 text-sm text-gray-500">We're working on adding notification management features.</p>
+              <h3 className="mt-2 text-sm font-medium text-gray-900">Notification settings will be available soon.</h3>
+              <p className="mt-1 text-sm text-gray-500">Stay tuned for notification management features.</p>
             </div>
           </div>
         )

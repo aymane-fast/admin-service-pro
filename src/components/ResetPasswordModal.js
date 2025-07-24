@@ -372,7 +372,7 @@ export function PublicResetPasswordModal({ isOpen, onClose }) {
       });
       const data = await res.json();
       if (data.status === 'success') {
-        setMessage('Check your email for the reset token. (Dev: Token: ' + data.data.token + ')');
+        setMessage('Check your email for the reset token.');
         setStep(2);
       } else {
         setError(data.message || 'Error requesting reset');
