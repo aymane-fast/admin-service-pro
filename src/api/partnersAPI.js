@@ -120,11 +120,7 @@ const partnersApi = {
     async updatePartner(id, partnerData) {
         try {
             const response = await api.put(`/partners/${id}`, {
-                name: partnerData.name,
-                email: partnerData.email,
-                commission: partnerData.commission,
-                phone: partnerData.phone,
-                zip_code: partnerData.zip_code
+                ...partnerData
             })
             return response.data.data
         } catch (error) {
