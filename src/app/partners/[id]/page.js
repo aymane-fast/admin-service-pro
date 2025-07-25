@@ -21,7 +21,7 @@ function PasswordModal({ password, onClose }) {
           </div>
           <div className="mb-4">
             <p className="text-gray-700 mb-2 font-semibold">Le mot de passe a été réinitialisé. Veuillez le communiquer au partenaire :</p>
-            <div className="bg-gray-100 border border-gray-300 rounded px-3 py-2 font-mono text-lg text-center select-all text-green-600">{password}</div>
+             <div className="bg-gray-100 border border-gray-300 rounded px-3 py-2 font-mono text-lg text-center select-all text-green-600">{password}</div>
             <p className="text-xs text-gray-500 mt-2">Cette fenêtre se fermera automatiquement dans 10 secondes.</p>
           </div>
           <div className="flex justify-end">
